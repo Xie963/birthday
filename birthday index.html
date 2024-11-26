@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Card</title>
+    <style>
+        body {
+            background-color: #FFDAB9;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        audio {
+            display: none; /* 隐藏音频控件 */
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #8B008B;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted playsinline id="backgroundVideo">
+        <source src="background_video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <audio controls id="musicPlayer">
+        <source src="birthday_music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="card-container">
+        <div class="card">
+            <img id="cakeImage" src="birthday_cake.png" alt="Birthday Cake">
+            <div class="message" id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        const messages = ["Happy birthday", "Make a wish"];
+        let currentIndex = 0;
+        let currentMessageIndex = 0;
+        const messageElement = document.getElementById('message');
+        const cakeImage = document.getElementById('cakeImage');
+        const videoElement = document.getElementById('backgroundVideo');
+        const musicPlayer = document.getElementById('musicPlayer');
+
+        // 设置视频透明度
+        videoElement.style.opacity = 0.5;
+
+        // 设置音乐音量
+        musicPlayer.volume = 0.5;
+
+        function typeWriter() {
+            if (currentIndex < messages[currentMessageIndex].length) {
+                messageElement.innerHTML += messages[currentMessageIndex].charAt(currentIndex);
+                currentIndex++;
+                setTimeout(typeWriter, 100); // Speed of typing
+            } else {
+                currentIndex = 0;
+                currentMessageIndex++;
+                if (currentMessageIndex < messages.length) {
+                    setTimeout(() => {
+                        messageElement.innerHTML = ''; // Clear previous message
+                        typeWriter();
+                    }, 1000); // Delay before starting next message
+                }
+            }
+        }
+
+        typeWriter();
+
+        // 显示音频控件（如果需要调试）
+        // window.onload = function() {
+        //     musicPlayer.style.display = 'block';
+        // };
+    </script>
+</body>
+</html>
+
+
+
