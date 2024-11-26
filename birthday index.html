@@ -40,12 +40,11 @@
             position: relative;
             z-index: 1; /* 卡片位于视频之上 */
         }
-      img {
-    width: 100px; /* 设置图片宽度 */
-    height: 100px; /* 设置图片高度 */
-    border-radius: 50%; /* 使图片呈圆形 */
-    object-fit: cover; /* 确保图片内容适应圆形 */
-}
+   img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px; /* 图片圆角 */
+        }
         .message {
             margin-top: 20px;
             font-size: 2em; /* 消息字体大小 */
